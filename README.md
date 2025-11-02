@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T-Rex Runner Clone - Final Music Fix</title>
+    <title>T-Rex Runner Clone - Final Version</title>
 
     <style>
         /* --- STYLE.CSS SECTION --- */
@@ -14,7 +14,7 @@
             height: 100vh;
             width: 100vw;
             margin: 0;
-            background-color: #FFFFFF; 
+            background-color: #FFFFFF; /* White background */
             overflow: hidden;
             font-family: monospace;
             color: #1e3a8a; 
@@ -35,7 +35,7 @@
             margin-bottom: -25px; 
         }
 
-        /* 2. DINO STYLES */
+        /* 2. DINO STYLES (Custom Image) */
         .dino {
             width: 55px; 
             height: 85px; 
@@ -50,12 +50,12 @@
             filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)); 
         }
 
-        /* JUMP HEIGHT */
+        /* JUMP HEIGHT (Boosted) */
         .jump {
-            bottom: 230px; 
+            bottom: 260px; 
         }
 
-        /* 3. CACTUS STYLES */
+        /* 3. CACTUS STYLES (Custom Image) */
         .cactus {
             width: 45px; 
             height: 70px; 
@@ -69,7 +69,7 @@
             filter: drop-shadow(0px 0px 0px rgba(0, 0, 0, 0)); 
         }
         
-        /* BIRD STYLES */
+        /* 4. BIRD STYLES (Custom Image) */
         .bird {
             width: 55px; 
             height: 55px; 
@@ -106,10 +106,11 @@
             border: 4px solid #1e3a8a; 
             z-index: 5; 
         }
+
         .game-over-screen h1 { margin: 0; font-size: 3em; }
         .game-over-screen p { margin: 10px 0 0; font-size: 1.5em; }
 
-        /* 4. MUSIC ICON/BUTTON STYLES */
+        /* MUSIC ICON/BUTTON STYLES */
         #musicControl {
             position: absolute;
             bottom: 15px;
@@ -167,7 +168,7 @@
         let allowBirdSpawn = false;
         const BIRD_SPAWN_DELAY_MS = 120000; // 2 minutes
         
-        let isMusicPlaying = false; // New state tracker
+        let isMusicPlaying = false; 
 
         // --- Music Control Function ---
         function toggleMusic() {
@@ -180,7 +181,7 @@
                     isMusicPlaying = true;
                     musicControl.innerHTML = '🔊 Music On';
                 }).catch(error => {
-                    console.log("Playback failed even with click, audio source likely invalid or inaccessible.");
+                    console.log("Playback failed. Audio source likely invalid or inaccessible.");
                     musicControl.innerHTML = '❌ Audio Error';
                 });
             }
@@ -296,9 +297,9 @@
                 allowBirdSpawn = true;
             }, BIRD_SPAWN_DELAY_MS);
             
-            // Do NOT try to play music here. It must be manually clicked.
+            // Resume music if it was previously playing
             if (isMusicPlaying) {
-                 music.play().catch(e => console.log("Failed to auto-resume music."));
+                 music.play().catch(e => console.log("Failed to resume music."));
             }
 
             gameLoop();
@@ -322,7 +323,7 @@
             }
         });
         
-        // NEW: Event listener for the manual music button
+        // Listener for the manual music button
         musicControl.addEventListener('click', toggleMusic);
 
 
